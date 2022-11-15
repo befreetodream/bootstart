@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+<mapper namespace="com.neusoft.elmboot.mapper.CartMapper">
+	<resultMap type="Cart" id="base1">
+		<id column="cartId" property="cartId"></id>
+		<result column="foodId" property="foodId"></result>
+		<result column="businessId" property="businessId"></result>
+		<result column="userId" property="userId"></result>
+		<result column="quantity" property="quantity"></result>
+		<association property="business" javaType="Business">
+			<id property="businessId" column="businessId"></id>
+			<result  property="businessName" column="businessName"></result>
+		</association>
+		<association property="food" javaType="Food">
+			<id property="foodId" column="foodId"></id>
+			<result  property="foodName" column="foodName"></result>
+			<result  property="foodPrice" column="foodPrice"></result>
+		</association>
+	</resultMap>
+
+	<select id="listCart" parameterType="cart" resultMap="base1">
+		select c.*,b.*,f.*
+		from cart c, business  b, food f
+		where  c.businessid= b.businessid
+		and  c.foodid =f.foodid
+		and  c.userid = #{userId} 
+		<if test="businessId!=null and  businessId!='' ">
+		 and  c.businessid=#{businessId}
+		</if>
+	</select>
+</mapper>    

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.elmboot.mapper.OrdersMapper" >
+	<resultMap type="Orders" id="orderResultMap">
+		<id column="orderId" property="orderId" />
+		<result column="userId" property="userId" />
+		<result column="businessId" property="businessId" />
+		<result column="orderDate" property="orderDate" />
+		<result column="orderTotal" property="orderTotal" />
+		<result column="daId" property="daId" />
+		<result column="orderState" property="orderState" />
+		<!-- 一对一关联 -->
+		<association property="business" javaType="Business" 
+		select="com.neusoft.elmboot.mapper.BusinessMapper.getBusinessById" column="businessId"/>
+		<!-- 一对多关联 -->
+		<collection property="list" ofType="Orderdetailet" 
+		select="com.neusoft.elmboot.mapper.OrderdetailetMapper.listOrderDetailetByOrderId" column="orderId"/>
+	</resultMap>
+	
+	<select id="getOrderById" parameterType="Integer" resultMap="orderResultMap">
+		select * from orders where orderId=#{orderId}
+	</select>
+	
+	<select id="listOrdersByUserId" parameterType="String" resultMap="orderResultMap">
+		select * from orders where userId=#{userId} order by orderId
+	</select>
+</mapper>

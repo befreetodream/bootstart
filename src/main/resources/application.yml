@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /elm
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
