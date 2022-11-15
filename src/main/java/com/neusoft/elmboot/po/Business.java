@@ -1,8 +1,12 @@
 package com.neusoft.elmboot.po;
 
-import java.math.BigDecimal;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+import java.math.BigDecimal;
+@ApiModel("商家实体")
 public class Business {
+	@ApiModelProperty("商家id")
 	private Integer  businessId;
 	private String businessName;
 	private String businessAddress;
